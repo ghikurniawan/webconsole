@@ -48,7 +48,7 @@ $(document).ready(function() {
 	
 	var projects = [];
 
-	var userID = 'larguar';
+	var userID = 'fusion-tech';
 	var apiKey = 'v8SNqxsyD70hgx1EXIQPjmjiQVe9K7HQ';
 	var queryURL = 'https://api.behance.net/v2/users/' + userID + '/projects?api_key=' + apiKey;
 	
