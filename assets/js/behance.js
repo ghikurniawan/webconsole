@@ -1,13 +1,15 @@
-
 $(document).ready(function() {
 
 	function outputProjects(projects) {	
-		
+        
 		projects.forEach(function(i) {
-			
-			var col = $('<div>').addClass('col col-12 col-sm-6 col-lg-4');
-			var a = $('<a>').attr('target', '_blank').attr('href', i.url);
-			
+            
+			var col = $('<div>').addClass('col col-12 col-sm-6 col-lg-4').attr({'data-aos' : "fade-up", 'data-aos-duration' : "2000"});
+            
+			var a = $('<a>').attr('href', '#lightbox').attr('data-bs-target', '#lightbox').attr('data-bs-toggle', 'modal').attr('data-bs-url', i.url).attr('data-bs-id', i.id);
+            
+           
+            
 			var card = $('<div>').addClass('project-card');
 			card.attr('style', 'background-image: url("' + i.covers.original + '");');
 			
@@ -51,6 +53,28 @@ $(document).ready(function() {
 	var userID = 'fusion-tech';
 	var apiKey = 'v8SNqxsyD70hgx1EXIQPjmjiQVe9K7HQ';
 	var queryURL = 'https://api.behance.net/v2/users/' + userID + '/projects?api_key=' + apiKey;
+    
+        $('#lightbox').on('show.bs.modal', function(e) {
+            
+            var projectId = $(e.relatedTarget).data('bs-id');
+            var urlDetail = 'https://www.behance.net/v2/projects/' + projectId + '?api_key=' + apiKey;
+
+            isDetail = 1;
+
+            callBehanceProjectDetail(urlDetail);
+            
+            // $(e.currentTarget).find('#modalBody').append(hasil);
+            
+           });
+    
+        
+	$("#lightbox").on("hidden.bs.modal", function(e){
+
+		var log =	$(e.currentTarget).find('#bhContain').html('')
+		console.log(log)
+	});
+    
+    
 	
 	$.ajax({
 	  url: queryURL,
@@ -74,24 +98,12 @@ $(document).ready(function() {
 		
 	});
 	
-	$('.menu-toggle').on('click', function(event) {
-		event.preventDefault();
-		
-		if ($(this).hasClass('closed')) {
-			
-			$(this).removeClass('closed');
-			$(this).addClass('open');
-			$('header').attr('style', 'background: rgba(255,255,255,0.9); z-index: 1;').attr('data-aos', '').attr('data-aos-duration', '50');
-			$('ul.nav').attr('style', 'opacity: 1;').attr('data-aos', '').attr('data-aos-duration', '1000');
-			
-		} else {
-			
-			$(this).removeClass('open');
-			$(this).addClass('closed');
-			$('header').attr('style', 'background: rgba(255,255,255,0); z-index: -1;').attr('data-aos', 'fade');
-			$('ul.nav').attr('style', 'opacity: 0;').attr('data-aos', 'fade').attr('data-aos-duration', '50');
-			
-		}
-	});
-	
+    
+    
+
+    
+    
+    
+    
+    
 });
